@@ -38,6 +38,11 @@ export const getStaticPaths = () => {
   const paths = getAllTodoIds();
   return {
     paths,
-    fallback: false
+    // true にすると、pathが生成されていないURLにアクセスした場合に、
+    // 404 を返さずに以下の挙動をする
+    // 1. 動的なデータが入っていない状態のHTMLの殻を返す
+    // 2. クライアントサイドでデータフェッチを行う
+    // 'blocking' にしていた場合は、サーバーサイドでデータフェッチしてから返すようになる(ほぼSSR)
+    fallback: true
   }
 }
